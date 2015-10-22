@@ -66,6 +66,57 @@
         </input>
       </folder>
 
+      <folder label="Storage">
+        <input>
+          <grammar>
+            <item>I have a *</item>
+          </grammar>
+        </input>
+        <output>
+          <prompt selectionType="RANDOM">
+            <item>Would you mind specify your symptom?</item>
+          </prompt>
+          <input>
+            <grammar>
+              <item>drinks</item>
+              <item>beverages</item>
+              <item>liquid</item>
+              <item>libation</item>
+            </grammar>
+            <output>
+              <prompt selectionType="RANDOM">
+                <item>We have
+                  Coke,
+                  Sprite,
+                  Sunkist,
+                  Root Beer,
+                  Ginger Ale,
+                  Fresca,
+                  Mello Yello,
+                  Grape,
+                  Dr Pepper,
+                  Monster,
+                  Moxie Energy,
+                  and Bottled Spring water
+                </item>
+              </prompt>
+            </output>
+          </input>
+        </output>
+      </folder>
+
+    </folder>
+
+    <folder label="Concepts">
+      <concept>
+        <grammar>
+          <item>symptom</item>
+          <item>weird feeling</item>
+          <item>behavior</item>
+          <item>problem</item>
+        </grammar>
+      </concept>
+    </folder>
 
   </flow>
 </dialog>
