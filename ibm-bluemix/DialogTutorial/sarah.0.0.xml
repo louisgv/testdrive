@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dialog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="WatsonDialogDocument_1.0.xsd">
+  <flow>
+    <folder label="Main">
+      <output>
+        <prompt selectionType="RANDOM">
+          <item>How may I be of help?</item>
+          <!-- A way to insert Good Morning | Good Afternoon ? -->
+          <item>How are you?</item>
+          <item>Please let me know if you experienced any weird symptoms.</item>
+        </prompt>
+      </output>
+      <goto ref="getUserInput_intro" />
+      <getUserInput id="getUserInput_intro">
+        <search ref="folder_intro" />
+        <default>
+          <output>
+            <prompt selectionType="RANDOM">
+              <item>
+                I am sorry, but I cannot find any answer to your question...
+                I have sent the question to a trusted doctor. and will notify you
+                once I have the answer to that question.
+              </item>
+              <item>
+                There is no answer to your question...
+                Let me send it to a trusted doctor.
+                As soon as I get the answer, I will notify you.
+                In the meantime, let's continue our previous conversation.
+              </item>
+            </prompt>
+          </output>
+        </default>
+      </getUserInput>
+    </folder>
+    <folder label="Library">
+      <folder id="folder_intro" label="Live Content">
+        <input>
+          <grammar>
+            <item>What can you do?</item>
+            <item>$ What can you do?</item>
+            <item>Why do you exist?</item>
+            <item>$ Why do you exist?</item>
+            <item>$ purpose</item>
+            <item>What * purpose *</item>
+            <item>$ list * functionality * available</item>
+          </grammar>
+
+          <output>
+            <prompt selectionType="RANDOM">
+              <item>
+                I can help you record your health data of the day!
+              </item>
+              <item>
+                By letting me know how you are feeling, I will keep track of it
+                so that in the future your doctor will have a point of reference.
+              </item>
+              <item>
+                Doctors need more data than they currently have in order to
+                give better diagnosis as well as a better understanding of the patient.
+                By sharing how you are feeling to me everyday, doctors will
+                have valuable data that one day might save your life!
+              </item>
+            </prompt>
+          </output>
+        </input>
+      </folder>
+
+
+  </flow>
+</dialog>
