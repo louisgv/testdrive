@@ -5,15 +5,16 @@
     <folder label="Main">
       <output>
         <prompt selectionType="RANDOM">
-          <item>How may I be of help?</item>
+          <!--<item>{{GREETING}}, how may I be of help?</item>-->
           <!-- A way to insert Good Morning | Good Afternoon ? -->
-          <item>How are you?</item>
+          <item>Hello, how are you?</item>
           <item>Please let me know if you experienced any weird symptoms.</item>
         </prompt>
       </output>
       <goto ref="getUserInput_intro" />
+
       <getUserInput id="getUserInput_intro">
-        <search ref="folder_intro" />
+        <search ref="folder_intro"/>
         <default>
           <output>
             <prompt selectionType="RANDOM">
@@ -32,9 +33,12 @@
           </output>
         </default>
       </getUserInput>
+
     </folder>
+
     <folder label="Library">
       <folder id="folder_intro" label="Live Content">
+
         <input>
           <grammar>
             <item>What can you do?</item>
@@ -55,55 +59,82 @@
                 By letting me know how you are feeling, I will keep track of it
                 so that in the future your doctor will have a point of reference.
               </item>
-              <item>
-                Doctors need more data than they currently have in order to
-                give better diagnosis as well as a better understanding of the patient.
-                By sharing how you are feeling to me everyday, doctors will
-                have valuable data that one day might save your life!
-              </item>
             </prompt>
           </output>
         </input>
-      </folder>
 
-      <folder label="Storage">
         <input>
           <grammar>
-            <item>I have a *</item>
+            <item>$ (Symptoms)={Symptom0}</item>
           </grammar>
+
+          <output>
+            <action varName="Symptom0" operator="SET_TO">{Symptom0.value:main}</action>
+            <prompt>
+              <item>So you experienced {Symptom0}</item>
+            </prompt>
+
+            <getUserInput>
+              <input>
+                <grammar>
+                  <item>drinks</item>
+                  <item>beverages</item>
+                  <item>liquid</item>
+                  <item>libation</item>
+                </grammar>
+
+                <output>
+                  <prompt selectionType="RANDOM">
+                    <item>
+                      We have
+                      Coke, Sprite, Sunkist, Root Beer,
+                      Ginger Ale, Fresca, Mello Yello,
+                      Grape, Dr Pepper, Monster,
+                      Moxie Energy, and Bottled Spring water
+                    </item>
+                  </prompt>
+                </output>
+              </input>
+
+              <input>
+                <grammar>
+                  <item>entrees</item>
+                  <item>meals</item>
+                  <item>main course</item>
+                  <item>food</item>
+                </grammar>
+                <output>
+                  <prompt selectionType="RANDOM">
+                    <item>
+                      We have Chicken Pam, Chicken Cutlet and Marinara Sauce, Veal Parm, Eggplant Parm, Eggplant and Marinara Sauce, Meatball, Marinara Sauce and Meatball, Chicken &amp; Broccoli, Chicken Kabob, Alfredo Sauce and Broccoli, Steak &amp; Broccoli, and
+                      Alfredo Sauce and Broccoli.
+                    </item>
+                  </prompt>
+                </output>
+              </input>
+
+              <input>
+                <grammar>
+                  <item>appetizers</item>
+                  <item>snacks</item>
+                  <item>finger food</item>
+                  <item>appertif</item>
+                </grammar>
+                <output>
+                  <prompt selectionType="RANDOM">
+                    <item>Chose from Fried Calamari, Mozarella Sticks, Stuffed potato skins, Jalepeno Poppers or Stuffed Mushrooms</item>
+                  </prompt>
+                </output>
+
+              </input>
+            </getUserInput>
+
+          </output>
         </input>
-        <output>
-          <prompt selectionType="RANDOM">
-            <item>Would you mind specify your symptom?</item>
-          </prompt>
-          <input>
-            <grammar>
-              <item>drinks</item>
-              <item>beverages</item>
-              <item>liquid</item>
-              <item>libation</item>
-            </grammar>
-            <output>
-              <prompt selectionType="RANDOM">
-                <item>We have
-                  Coke,
-                  Sprite,
-                  Sunkist,
-                  Root Beer,
-                  Ginger Ale,
-                  Fresca,
-                  Mello Yello,
-                  Grape,
-                  Dr Pepper,
-                  Monster,
-                  Moxie Energy,
-                  and Bottled Spring water
-                </item>
-              </prompt>
-            </output>
-          </input>
-        </output>
+
       </folder>
+
+      <folder label="Storage"/>
 
     </folder>
 
@@ -117,6 +148,18 @@
         </grammar>
       </concept>
     </folder>
-
   </flow>
+  <entities>
+    <entity name="Destination"/>
+    <entity name="Symptoms">
+      <value name="Coughing" value="Coughing"/>
+      <value name="Headache" value="Headache"/>
+      <value name="Stomachache" value="Stomachache"/>
+    </entity>
+  </entities>
+  <variables>
+    <var_folder name="Home">
+      <var name="Symptom0" type="TEXT" description="User initial symptom"/>
+    </var_folder>
+  </variables>
 </dialog>

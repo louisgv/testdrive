@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dialog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="WatsonDialogDocument_1.0.xsd">
+  <flow>
+    <folder label="Main">
+      <output>
+        <prompt selectionType="RANDOM">
+          <!--<item>{{GREETING}}, how may I be of help?</item>-->
+          <!-- A way to insert Good Morning | Good Afternoon ? -->
+          <item>Hey there!</item>
+          <item>How are you today?</item>
+        </prompt>
+      </output>
+      <goto ref="getUserInput_intro"/>
+
+      <getUserInput id="getUserInput_intro">
+        <search ref="folder_intro"/>
+        <default>
+          <output>
+            <prompt selectionType="RANDOM">
+              <item>
+                Sarah don't have answer to you question...
+              </item>
+              <item>
+                I don't understand...
+              </item>
+            </prompt>
+          </output>
+        </default>
+      </getUserInput>
+    </folder>
+
+    <folder label="Library">
+      <folder id="folder_intro" label="Live Content">
+        <input>
+          <grammar>
+            <item>$ Hi</item>
+            <item>$ Hello</item>
+            <item>$ Good</item>
+          </grammar>
+          <!-- Set variable to 0-->
+          <action varName="ENTP" operator="SET_TO">
+            0
+          </action>
+
+          <action varName="INTP" operator="SET_TO">
+            0
+          </action>
+
+          <!-- Go To Persona Questions-->
+          <goto ref="persona_questions"/>
+        </input>
+      </folder>
+
+      <folder id="got_data">
+        <output>
+          <prompt selectionType="RANDOM">
+            <item>I see...</item>
+            <item>Make sense!</item>
+            <item>Sounds great!</item>
+          </prompt>
+          <prompt>
+            <item>ENTP: {ENTP}, INTP: {INTP}</item>
+          </prompt>
+          <goto ref="persona_questions"/>
+        </output>
+      </folder>
+
+      <folder id="persona_questions" selectionType="RANDOM">
+        <random>
+          <!-- Q1-->
+          <output>
+            <prompt>
+              <item>What is a scarier scenario to you, becoming homeless and loosing your precious
+                collection, or working a menial labor job till the day you die and never getting
+                where you want to be in life?
+              </item>
+            </prompt>
+            <getUserInput>
+              <input>
+                <grammar>
+                  <item>$ Home</item>
+                  <item>$ Collection</item>
+                </grammar>
+                <action varName="INTP" operator="INCREMENT_BY">1</action>
+                <goto ref="got_data"></goto>
+              </input>
+
+              <input>
+                <grammar>
+                  <item>$ job</item>
+                  <item>$ life</item>
+                </grammar>
+                <action varName="ENTP" operator="INCREMENT_BY">1</action>
+                <goto ref="got_data"></goto>
+              </input>
+            </getUserInput>
+
+          </output>
+
+          <output>
+            <prompt>
+              <item>
+                Do you like it when other people agree with you?
+              </item>
+            </prompt>
+            <getUserInput>
+              <input>
+                <grammar>
+                  <item>$ yes</item>
+                  <item>$ yeah</item>
+                </grammar>
+                <action varName="INTP" operator="INCREMENT_BY">1</action>
+                <goto ref="got_data"></goto>
+              </input>
+
+              <input>
+                <grammar>
+                  <item>$ no</item>
+                  <item>$ nah</item>
+                </grammar>
+                <action varName="eNTP" operator="INCREMENT_BY">1</action>
+                <goto ref="got_data"></goto>
+              </input>
+            </getUserInput>
+          </output>
+
+          <output>
+            <prompt>
+              <item>
+                What is the main quality you want in a significant other?
+              </item>
+            </prompt>
+
+            <getUserInput>
+              <input>
+                <grammar>
+                  <item>$ kind</item>
+                  <item>$ nice</item>
+                  <item>$ funny</item>
+                  <item>$ care</item>
+                </grammar>
+                <action varName="INTP" operator="INCREMENT_BY">1</action>
+                <goto ref="got_data"></goto>
+              </input>
+
+              <input>
+                <grammar>
+                  <item>$ intelligent</item>
+                  <item>$ killer</item>
+                </grammar>
+                <action varName="ENTP" operator="INCREMENT_BY">1</action>
+                <goto ref="got_data"></goto>
+              </input>
+            </getUserInput>
+
+          </output>
+
+
+          <output>
+            <prompt>
+              <item>
+                Do you have strong feelings inside of you?
+              </item>
+            </prompt>
+
+            <getUserInput>
+              <input>
+                <grammar>
+                  <item>$ yes</item>
+                  <item>$ yeah</item>
+                </grammar>
+                <action varName="INTP" operator="INCREMENT_BY">1</action>
+                <goto ref="got_data"></goto>
+              </input>
+
+              <input>
+                <grammar>
+                  <item>$ no</item>
+                  <item>$ nah</item>
+                </grammar>
+                <action varName="ENTP" operator="INCREMENT_BY">1</action>
+                <goto ref="got_data"></goto>
+              </input>
+            </getUserInput>
+          </output>
+
+
+          <output>
+            <prompt>
+              <item>
+                Is the chaos in your head or all around you?
+              </item>
+            </prompt>
+
+            <getUserInput>
+              <input>
+                <grammar>
+                  <item>$ head</item>
+                  <item>$ mind</item>
+                </grammar>
+                <action varName="INTP" operator="INCREMENT_BY">1</action>
+                <goto ref="got_data"></goto>
+              </input>
+
+              <input>
+                <grammar>
+                  <item>$ around</item>
+                  <item>$ outside</item>
+                </grammar>
+                <action varName="ENTP" operator="INCREMENT_BY">1</action>
+                <goto ref="got_data"></goto>
+              </input>
+            </getUserInput>
+          </output>
+
+
+          <output>
+            <prompt>
+              <item>
+                How does flirting feel to you?
+              </item>
+            </prompt>
+
+            <getUserInput>
+              <input>
+                <grammar>
+                  <item>$ scary</item>
+                  <item>$ suck</item>
+                </grammar>
+                <action varName="INTP" operator="INCREMENT_BY">1</action>
+                <goto ref="got_data"></goto>
+              </input>
+
+              <input>
+                <grammar>
+                  <item>$ fun</item>
+                  <item>$ great</item>
+                </grammar>
+                <action varName="ENTP" operator="INCREMENT_BY">1</action>
+                <goto ref="got_data"></goto>
+              </input>
+            </getUserInput>
+          </output>
+
+
+          <output>
+            <prompt>
+              <item>
+                What is a greater sin, inconsistent views or black and white thinking?
+              </item>
+            </prompt>
+
+            <getUserInput>
+              <input>
+                <grammar>
+                  <item>$ inconsistent</item>
+                </grammar>
+                <action varName="INTP" operator="INCREMENT_BY">1</action>
+                <goto ref="got_data"></goto>
+              </input>
+
+              <input>
+                <grammar>
+                  <item>$ black * white</item>
+                  <item>$ rigged</item>
+                </grammar>
+                <action varName="ENTP" operator="INCREMENT_BY">1</action>
+                <goto ref="got_data"></goto>
+              </input>
+            </getUserInput>
+          </output>
+
+          <output>
+            <prompt>
+              <item>
+                Is love real?
+              </item>
+
+            </prompt>
+
+            <getUserInput>
+              <input>
+                <grammar>
+                  <item>$ yes</item>
+                  <item>$ yeah</item>
+                </grammar>
+                <action varName="INTP" operator="INCREMENT_BY">1</action>
+                <goto ref="got_data"></goto>
+              </input>
+
+              <input>
+                <grammar>
+                  <item>$ no</item>
+                  <item>$ nah</item>
+                </grammar>
+                <action varName="ENTP" operator="INCREMENT_BY">1</action>
+                <goto ref="got_data"></goto>
+              </input>
+            </getUserInput>
+          </output>
+
+
+          <output>
+            <prompt>
+              <item>
+                Is reality objective, or is reality entirely a subjective experience in the head of
+                individual?
+              </item>
+            </prompt>
+
+            <getUserInput>
+              <input>
+                <grammar>
+                  <item>$ subjective</item>
+                </grammar>
+                <action varName="INTP" operator="INCREMENT_BY">1</action>
+                <goto ref="got_data"></goto>
+              </input>
+
+              <input>
+                <grammar>
+                  <item>$ objective</item>
+                </grammar>
+                <action varName="ENTP" operator="INCREMENT_BY">1</action>
+                <goto ref="got_data"></goto>
+              </input>
+            </getUserInput>
+          </output>
+        </random>
+      </folder>
+
+    </folder>
+
+    <folder label="Concepts">
+      <concept>
+        <grammar>
+          <item>symptom</item>
+          <item>weird feeling</item>
+          <item>behavior</item>
+          <item>problem</item>
+        </grammar>
+      </concept>
+    </folder>
+  </flow>
+  <entities>
+    <entity name="Destination"/>
+    <entity name="Symptoms">
+      <value name="Coughing" value="Coughing"/>
+      <value name="Headache" value="Headache"/>
+      <value name="Stomachache" value="Stomachache"/>
+    </entity>
+  </entities>
+
+  <variables>
+    <var_folder name="persona">
+      <var name="ENTP" description="ENTP score" type="NUMBER"/>
+      <var name="INTP" description="INTP score" type="NUMBER"/>
+    </var_folder>
+  </variables>
+
+  <settings>
+    <setting name="AUTOLEARN" type="USER">true</setting>
+    <setting name="RESPONSETIME" type="USER">-2</setting>
+
+  </settings>
+</dialog>
